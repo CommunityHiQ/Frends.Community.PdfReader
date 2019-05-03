@@ -1,5 +1,5 @@
 # Frends.Community.PdfReader
-Frends task for reading PDF documents. Might not work on all PDF files.
+Frends task for reading PDF documents. Will not work on all PDF files.
 
 - [Installing](#installing)
 - [Tasks](#tasks)
