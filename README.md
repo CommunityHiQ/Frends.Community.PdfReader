@@ -3,7 +3,7 @@ Frends task for reading PDF documents. Might not work on all PDF files.
 
 - [Installing](#installing)
 - [Tasks](#tasks)
-  - [Readed Pdf](#createpdf)
+  - [ReadPdf](#readepdf)
 - [License](#license)
 - [Building](#building)
 - [Contributing](#contributing)
@@ -16,7 +16,7 @@ You can install the task via FRENDS UI Task View or you can find the nuget packa
 Tasks
 =====
 
-## CreatePdf
+## ReadPdf
 
 ### Task Properties
 
@@ -28,7 +28,7 @@ Settings for reading the PDF file.
 | ---------------------| ---------------------| ------------------------------------ | ----- |
 | ReadFromFile | bool | Read PDF from a file. | true |
 | PdfLocation | string | Location of the PDF file. | C:\Pdf_Output\my_pdf_file.pdf |
-| InputBytes | byte[] | PDF bytes . | |
+| InputBytes | byte[] | PDF bytes | |
 | Page		  | int	   | Specify which page to read. 0 read every page  | 1 |
 
 
@@ -36,7 +36,7 @@ Settings for reading the PDF file.
 ### Result
 | Property             | Type                 | Description                          | Example |
 | ---------------------| ---------------------| ------------------------------------ | ----- |
-| Content | string | PDF content | "true" |
+| Content | string | PDF content | "This is a test pdf. It contains all the info. " |
 
 
 # License
@@ -51,7 +51,7 @@ Clone a copy of the repo
 
 Restore dependencies
 
-`nuget restore frends.community.pdfwriter`
+`nuget restore frends.community.pdfReader`
 
 Rebuild the project
 
