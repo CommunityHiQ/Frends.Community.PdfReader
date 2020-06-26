@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Text;
+using System.Threading;
 // using iText.Kernel;
 // using iTextSharp.text.pdf.parser;
 
@@ -14,7 +15,7 @@ namespace Frends.Community.PdfReader
         /// </summary>
         /// <param name="options"></param>
         /// <returns>Object { string Content }</returns>
-        public static Output ReadPdf([PropertyTab] Options options)
+        public static Output ReadPdf([PropertyTab] Options options,CancellationToken cancellationToken)
         {
             var text = new StringBuilder();
             if (options.ReadFromFile)

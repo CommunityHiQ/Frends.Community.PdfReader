@@ -11,7 +11,7 @@ namespace Frends.Community.PdfReader.Tests
         [Test]
         public void ReadPdf_ShouldWork()
         {
-            var result = PdfReaderTask.ReadPdf(new Options {ReadFromFile = true, PdfLocation = _pdfLocation, Page = 1});
+            var result = PdfReaderTask.ReadPdf(new Options {ReadFromFile = true, PdfLocation = _pdfLocation, Page = 1}, new System.Threading.CancellationToken());
 
             Assert.IsTrue(result.Content.Contains("This is a test pdf"));
         }
