@@ -1,47 +1,52 @@
 # Frends.Community.PdfReader
-Frends task for reading PDF documents. Will not work on all PDF files.
+
+FRENDS Community Task for PdfReaderTask
+
+[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.PdfReader/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.PdfReader/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.PdfReader) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Tasks](#tasks)
-  - [ReadPdf](#readepdf)
-- [License](#license)
+     - [PdfReaderTask](#PdfReaderTask)
 - [Building](#building)
 - [Contributing](#contributing)
 - [Change Log](#change-log)
 
 # Installing
-You can install the task via FRENDS UI Task View or you can find the nuget package from the following nuget feed
-'Nuget feed coming at later date'
 
-Tasks
-=====
+You can install the task via FRENDS UI Task View or you can find the NuGet package from the following NuGet feed
+https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.PdfReader
 
-## ReadPdf
+# Tasks
 
-### Task Properties
+## PdfReaderTask
+
+Repeats message
+
+### Properties
+
+| Property | Type | Description | Example |
+| -------- | -------- | -------- | -------- |
+| Message | `string` | Some string that will be repeated. | `foo` |
 
 ### Options
 
-Settings for reading the PDF file.
+| Property | Type | Description | Example |
+| -------- | -------- | -------- | -------- |
+| Amount | `int` | Amount how many times message is repeated. | `3` |
+| Delimiter | `string` | Character(s) used between replications. | `, ` |
 
-| Property             | Type                 | Description                          | Example |
-| ---------------------| ---------------------| ------------------------------------ | ----- |
-| ReadFromFile | bool | Read PDF from a file. | true |
-| PdfLocation | string | Location of the PDF file. | C:\Pdf_Output\my_pdf_file.pdf |
-| InputBytes | byte[] | PDF bytes | |
-| Page		  | int	   | Specify which page to read. 0 read every page  | 1 |
+### Returns
 
+A result object with parameters.
 
+| Property | Type | Description | Example |
+| -------- | -------- | -------- | -------- |
+| Replication | `string` | Repeated string. | `foo, foo, foo` |
 
-### Result
-| Property             | Type                 | Description                          | Example |
-| ---------------------| ---------------------| ------------------------------------ | ----- |
-| Content | string | PDF content | "This is a test pdf. It contains all the info. " |
+Usage:
+To fetch result use syntax:
 
-
-# License
-
-This project is licensed under the MIT License - see the LICENSE file for details
+`#result.Replication`
 
 # Building
 
@@ -49,19 +54,17 @@ Clone a copy of the repo
 
 `git clone https://github.com/CommunityHiQ/Frends.Community.PdfReader.git`
 
-Restore dependencies
-
-`nuget restore frends.community.pdfReader`
-
 Rebuild the project
 
-Run Tests with nunit3. Tests can be found under
+`dotnet build`
 
-`Frends.Community.PdfReader.Tests\bin\Release\Frends.Community.PdfReader.Tests.dll`
+Run Tests
 
-Create a nuget package
+`dotnet test`
 
-`nuget pack nuspec/Frends.Community.PdfReader.nuspec`
+Create a NuGet package
+
+`dotnet pack --configuration Release`
 
 # Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -76,6 +79,6 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 # Change Log
 
-| Version             | Changes                 |
-| ---------------------| ---------------------|
-| 1.0.0 | Initial version of PdfReader |
+| Version | Changes |
+| ------- | ------- |
+| 0.0.1   | Development stil going on. |

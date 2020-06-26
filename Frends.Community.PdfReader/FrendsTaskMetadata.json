@@ -1,7 +1,7 @@
 ﻿{
-  "Tasks": [
-    {
-      "TaskMethod": "Frends.Community.PdfReader.PdfReaderTask.ReadPdf"
-    }
-  ]
+	"Tasks": [
+		{
+			"TaskMethod": "Frends.Community.PdfReader.PdfReaderTask.ReadPdf"
+		}
+	]
 }

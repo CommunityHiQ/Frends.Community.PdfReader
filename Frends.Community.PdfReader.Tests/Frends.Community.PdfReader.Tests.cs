@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 
 namespace Frends.Community.PdfReader.Tests
@@ -6,7 +6,7 @@ namespace Frends.Community.PdfReader.Tests
     [TestFixture]
     public class ReaderTests
     {
-        private readonly string _pdfLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\TestFiles\test.pdf";
+        private readonly string _pdfLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}..\..\..\TestFiles\test.pdf";
 
         [Test]
         public void ReadPdf_ShouldWork()

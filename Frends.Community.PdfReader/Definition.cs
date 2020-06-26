@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿#pragma warning disable 1591
 
-#pragma warning disable 1591
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Frends.Community.PdfReader
 {
-    public class Options
+     public class Options
     {
         /// <summary>
         /// Read data from a pdf file
