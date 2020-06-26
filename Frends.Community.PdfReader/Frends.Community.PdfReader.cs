@@ -14,6 +14,7 @@ namespace Frends.Community.PdfReader
         /// Read pdf and return content as string
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Object { string Content }</returns>
         public static Output ReadPdf([PropertyTab] Options options,CancellationToken cancellationToken)
         {
