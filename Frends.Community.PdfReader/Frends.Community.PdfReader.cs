@@ -31,7 +31,6 @@ namespace Frends.Community.PdfReader
                         {
                             for (var i = 1; i <= pdfdoc.GetNumberOfPages(); i++)
                             {
-
                                 var strategy = new iText.Kernel.Pdf.Canvas.Parser.Listener.SimpleTextExtractionStrategy();
                                 text.Append(iText.Kernel.Pdf.Canvas.Parser.PdfTextExtractor.GetTextFromPage(pdfdoc.GetPage(i), strategy));
                             }
