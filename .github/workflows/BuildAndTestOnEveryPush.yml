@@ -27,7 +27,12 @@ jobs:
       run: dotnet build -f netstandard2.0
     
     - name: Test
+      if: runner.os == 'Windows' 
       run: dotnet test
+    
+    - name: Test
+      if: runner.os == 'Linux' 
+      run: dotnet test -f netstandard2.0
       
     - name: Pack release version of task
       if: runner.os == 'Windows' 
