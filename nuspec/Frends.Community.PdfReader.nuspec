@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Frends.Community.PdfReader</id>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <title>Frends Community PDF Reader</title>
     <authors>HiQ Finland</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

@@ -78,4 +78,5 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 | Version             | Changes                 |
 | ---------------------| ---------------------|
-| 1.0.0 | Initial version of PdfReader |
+| 0.0.3 | Initial version of PdfReader |
+| 0.0.4 | Suport for acro fields |
