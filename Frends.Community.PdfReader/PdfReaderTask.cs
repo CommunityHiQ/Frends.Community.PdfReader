@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.IO;
 using System.Text;
 using iTextSharp.text.pdf.parser;
 
@@ -17,8 +19,11 @@ namespace Frends.Community.PdfReader
         {
             var text = new StringBuilder();
             if (options.ReadFromFile)
-                using (var reader = new iTextSharp.text.pdf.PdfReader(options.PdfLocation))
-                {
+            {
+                var reader = new iTextSharp.text.pdf.PdfReader(options.PdfLocation);
+                if (reader.AcroForm != null) reader = new iTextSharp.text.pdf.PdfReader(FlattenPdfFormToBytes(reader));
+                using (reader)
+                {                    
                     if (options.Page == 0)
                     {
                         for (var i = 1; i <= reader.NumberOfPages; i++)
@@ -31,9 +36,12 @@ namespace Frends.Community.PdfReader
                         text.Append(PdfTextExtractor.GetTextFromPage(reader, options.Page));
                     }
                 }
+            }
             else
             {
-                using (var reader = new iTextSharp.text.pdf.PdfReader(options.InputBytes))
+                var reader = new iTextSharp.text.pdf.PdfReader(options.InputBytes);
+                if (reader.AcroForm != null) reader = new iTextSharp.text.pdf.PdfReader(FlattenPdfFormToBytes(reader));
+                using (reader)
                 {
                     if (options.Page == 0)
                     {
@@ -50,6 +58,14 @@ namespace Frends.Community.PdfReader
             }
 
             return new Output { Content = text.ToString() };
+        }
+
+        private static byte[] FlattenPdfFormToBytes(iTextSharp.text.pdf.PdfReader reader)
+        {
+            var memStream = new MemoryStream();
+            var stamper = new iTextSharp.text.pdf.PdfStamper(reader, memStream) { FormFlattening = true };
+            stamper.Close();
+            return memStream.ToArray();
         }
     }
 }
