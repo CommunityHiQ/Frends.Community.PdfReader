@@ -32,6 +32,15 @@ namespace Frends.Community.PdfReader.Tests
 
             Assert.IsTrue(result.Content.Contains("Ketasteride"));
         }
+
+        [Test]
+        public void ReadPdf_ReadFlattenedForm()
+        {
+            var result = PdfReaderTask.ReadPdf(new Options { ReadFromFile = true, PdfLocation = System.IO.Path.Combine(_pdfLocation, "Supplement List of invoices2.pdf"), Page = 0 }, new System.Threading.CancellationToken());
+
+            Assert.IsTrue(result.Content.Contains("impossibile"));
+        }
+
     }
 }
 

@@ -18,9 +18,9 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 # Tasks
 
-## PdfReaderTask.ReadPdf
+## ReadPdf
 
-Read the text content of a pdf-file. OBS! Doesn't do OCR. 
+Read the text content of a pdf-file. OBS! Doesn't do OCR. If pdf-file contains Forms, flatten them and read the form fields aswell. 
 
 ### Properties
 
@@ -30,24 +30,28 @@ Read the text content of a pdf-file. OBS! Doesn't do OCR.
 
 ### Options
 
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| ReadFromFile | `bool` | Read the pdf-content from file | `true` |
-| PdfLocation | `string` | Location of the pdf-file (if ReadFromFile==true)  | `c:\temp\mypdffile.pdf ` |
-| InputBytes | `byte[]` | pdf-content as an byte array (if ReadFromFile==false)  |  |
-| Page | int | Read only a certain page, 0 reads all the pages   | 0 |
+Settings for reading the PDF file.
+
+| Property             | Type                 | Description                          | Example |
+| ---------------------| ---------------------| ------------------------------------ | ----- |
+| ReadFromFile | bool | Read PDF from a file. | true |
+| PdfLocation | string | Location of the PDF file. | C:\Pdf_Output\my_pdf_file.pdf |
+| InputBytes | byte[] | PDF bytes | |
+| Page		  | int	   | Specify which page to read. 0 read every page  | 1 |
+
+
 ### Returns
 
 A result object with parameters.
 
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| Content | `string` | Textual content of the Pdf-document | `This is a test pdf` |
+| Property             | Type                 | Description                          | Example |
+| ---------------------| ---------------------| ------------------------------------ | ----- |
+| Content | string | PDF content | "This is a test pdf. It contains all the info. " |
 
 Usage:
 To fetch result use syntax:
 
-`#result`
+`#result.Content`
 
 # Building
 
@@ -80,7 +84,9 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 # Change Log
 
-| Version | Changes |
-| ------- | ------- |
-| 0.0.1   | Development stil going on. |
-| 0.0.2   | Fixed Readme.md  |
+
+| Version             | Changes                 |
+| ---------------------| ---------------------|
+| 0.0.3 | Initial version of PdfReader |
+| 0.0.4 | Suport for acro fields |
+| 0.0.7 | Multi-framework support , using iText7|

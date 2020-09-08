@@ -19,31 +19,40 @@ namespace Frends.Community.PdfReader
         public static Output ReadPdf([PropertyTab] Options options,CancellationToken cancellationToken)
         {
             var text = new StringBuilder();
-            if (options.ReadFromFile)
-            {
-                using (var reader = options.ReadFromFile ? 
-                    new iText.Kernel.Pdf.PdfReader(options.PdfLocation) 
+
+
+            using (var reader = options.ReadFromFile ?
+                    new iText.Kernel.Pdf.PdfReader(options.PdfLocation)
                     : new iText.Kernel.Pdf.PdfReader(new System.IO.MemoryStream(options.InputBytes)))
+            {
+                var writer = new iText.Kernel.Pdf.PdfWriter(new System.IO.MemoryStream()); // for possible form flattening
+                var doc = new iText.Kernel.Pdf.PdfDocument(reader,writer);
+                var form = iText.Forms.PdfAcroForm.GetAcroForm(doc, false);
+                if (form!=null)
                 {
-                    using (var pdfdoc = new iText.Kernel.Pdf.PdfDocument(reader))
+                    
+                    form.FlattenFields();
+                    
+
+                }
+                
+                using (var pdfdoc = doc)
+                {
+                    if (options.Page == 0)
                     {
-                        if (options.Page == 0)
-                        {
-                            for (var i = 1; i <= pdfdoc.GetNumberOfPages(); i++)
-                            {
-                                var strategy = new iText.Kernel.Pdf.Canvas.Parser.Listener.SimpleTextExtractionStrategy();
-                                text.Append(iText.Kernel.Pdf.Canvas.Parser.PdfTextExtractor.GetTextFromPage(pdfdoc.GetPage(i), strategy));
-                            }
-                        }
-                        else
+                        for (var i = 1; i <= pdfdoc.GetNumberOfPages(); i++)
                         {
                             var strategy = new iText.Kernel.Pdf.Canvas.Parser.Listener.SimpleTextExtractionStrategy();
-                            text.Append(iText.Kernel.Pdf.Canvas.Parser.PdfTextExtractor.GetTextFromPage(pdfdoc.GetPage(options.Page), strategy));
+                            text.Append(iText.Kernel.Pdf.Canvas.Parser.PdfTextExtractor.GetTextFromPage(pdfdoc.GetPage(i), strategy));
                         }
+                    }
+                    else
+                    {
+                        var strategy = new iText.Kernel.Pdf.Canvas.Parser.Listener.SimpleTextExtractionStrategy();
+                        text.Append(iText.Kernel.Pdf.Canvas.Parser.PdfTextExtractor.GetTextFromPage(pdfdoc.GetPage(options.Page), strategy));
                     }
                 }
             }
-
             return new Output { Content = text.ToString() };
         }
     }
