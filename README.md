@@ -18,35 +18,36 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 # Tasks
 
-## PdfReaderTask
+## PdfReaderTask.ReadPdf
 
-Repeats message
+Read the text content of a pdf-file. OBS! Doesn't do OCR. 
 
 ### Properties
 
 | Property | Type | Description | Example |
 | -------- | -------- | -------- | -------- |
-| Message | `string` | Some string that will be repeated. | `foo` |
+| Options | Options(see below) |  |  |
 
 ### Options
 
 | Property | Type | Description | Example |
 | -------- | -------- | -------- | -------- |
-| Amount | `int` | Amount how many times message is repeated. | `3` |
-| Delimiter | `string` | Character(s) used between replications. | `, ` |
-
+| ReadFromFile | `bool` | Read the pdf-content from file | `true` |
+| PdfLocation | `string` | Location of the pdf-file (if ReadFromFile==true)  | `c:\temp\mypdffile.pdf ` |
+| InputBytes | `byte[]` | pdf-content as an byte array (if ReadFromFile==false)  |  |
+| Page | int | Read only a certain page, 0 reads all the pages   | 0 |
 ### Returns
 
 A result object with parameters.
 
 | Property | Type | Description | Example |
 | -------- | -------- | -------- | -------- |
-| Replication | `string` | Repeated string. | `foo, foo, foo` |
+| Content | `string` | Textual content of the Pdf-document | `This is a test pdf` |
 
 Usage:
 To fetch result use syntax:
 
-`#result.Replication`
+`#result`
 
 # Building
 
@@ -82,3 +83,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | Version | Changes |
 | ------- | ------- |
 | 0.0.1   | Development stil going on. |
+| 0.0.2   | Fixed Readme.md  |
