@@ -1,8 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
+﻿using System.ComponentModel;
 using System.Text;
-using iTextSharp.text.pdf.parser;
+using System.Threading;
+using System.IO;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using iText.Kernel.Pdf.Canvas.Parser;
 
 #pragma warning disable 1591
 
@@ -11,61 +13,41 @@ namespace Frends.Community.PdfReader
     public class PdfReaderTask
     {
         /// <summary>
-        /// Read pdf and return content as string
+        /// Read pdf and return content as string.
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Object { string Content }</returns>
-        public static Output ReadPdf([PropertyTab] Options options)
+        public static Output ReadPdf([PropertyTab] Options options, CancellationToken cancellationToken)
         {
             var text = new StringBuilder();
-            if (options.ReadFromFile)
+            using (var reader = options.ReadFromFile ? new iText.Kernel.Pdf.PdfReader(options.PdfLocation) : new iText.Kernel.Pdf.PdfReader(new MemoryStream(options.InputBytes)))
             {
-                var reader = new iTextSharp.text.pdf.PdfReader(options.PdfLocation);
-                if (reader.AcroForm != null) reader = new iTextSharp.text.pdf.PdfReader(FlattenPdfFormToBytes(reader));
-                using (reader)
-                {                    
-                    if (options.Page == 0)
-                    {
-                        for (var i = 1; i <= reader.NumberOfPages; i++)
-                        {
-                            text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
-                        }
-                    }
-                    else
-                    {
-                        text.Append(PdfTextExtractor.GetTextFromPage(reader, options.Page));
-                    }
-                }
-            }
-            else
-            {
-                var reader = new iTextSharp.text.pdf.PdfReader(options.InputBytes);
-                if (reader.AcroForm != null) reader = new iTextSharp.text.pdf.PdfReader(FlattenPdfFormToBytes(reader));
-                using (reader)
+                // For possible form flattening.
+                var writer = new PdfWriter(new MemoryStream());
+                var doc = new PdfDocument(reader, writer);
+                var form = iText.Forms.PdfAcroForm.GetAcroForm(doc, false);
+                if (form != null)
                 {
-                    if (options.Page == 0)
+                    form.FlattenFields();
+                }
+
+                if (options.Page == 0)
+                {
+                    for (var i = 1; i <= doc.GetNumberOfPages(); i++)
                     {
-                        for (var i = 1; i <= reader.NumberOfPages; i++)
-                        {
-                            text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
-                        }
-                    }
-                    else
-                    {
-                        text.Append(PdfTextExtractor.GetTextFromPage(reader, options.Page));
+                        cancellationToken.ThrowIfCancellationRequested();
+                        var strategy = new SimpleTextExtractionStrategy();
+                        text.Append(PdfTextExtractor.GetTextFromPage(doc.GetPage(i), strategy));
                     }
                 }
+                else
+                {
+                    var strategy = new SimpleTextExtractionStrategy();
+                    text.Append(PdfTextExtractor.GetTextFromPage(doc.GetPage(options.Page), strategy));
+                }
             }
-
             return new Output { Content = text.ToString() };
-        }
-
-        private static byte[] FlattenPdfFormToBytes(iTextSharp.text.pdf.PdfReader reader)
-        {
-            var memStream = new MemoryStream();
-            var stamper = new iTextSharp.text.pdf.PdfStamper(reader, memStream) { FormFlattening = true };
-            stamper.Close();
-            return memStream.ToArray();
         }
     }
 }
