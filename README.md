@@ -1,32 +1,24 @@
 # Frends.Community.PdfReader
-
-FRENDS Community Task for PdfReaderTask
-
-[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.PdfReader/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.PdfReader/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.PdfReader) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+Frends task for reading PDF documents. Will not work on all PDF files.
 
 - [Installing](#installing)
 - [Tasks](#tasks)
-     - [PdfReaderTask](#PdfReaderTask)
+  - [ReadPdf](#readepdf)
+- [License](#license)
 - [Building](#building)
 - [Contributing](#contributing)
 - [Change Log](#change-log)
 
 # Installing
+You can install the task via FRENDS UI Task View or you can find the nuget package from the following nuget feed
+'Nuget feed coming at later date'
 
-You can install the task via FRENDS UI Task View or you can find the NuGet package from the following NuGet feed
-https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.PdfReader
-
-# Tasks
+Tasks
+=====
 
 ## ReadPdf
 
-Read the text content of a pdf-file. OBS! Doesn't do OCR. If pdf-file contains Forms, flatten them and read the form fields aswell. 
-
-### Properties
-
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| Options | Options(see below) |  |  |
+### Task Properties
 
 ### Options
 
@@ -40,18 +32,16 @@ Settings for reading the PDF file.
 | Page		  | int	   | Specify which page to read. 0 read every page  | 1 |
 
 
-### Returns
 
-A result object with parameters.
-
+### Result
 | Property             | Type                 | Description                          | Example |
 | ---------------------| ---------------------| ------------------------------------ | ----- |
 | Content | string | PDF content | "This is a test pdf. It contains all the info. " |
 
-Usage:
-To fetch result use syntax:
 
-`#result.Content`
+# License
+
+This project is licensed under the MIT License - see the LICENSE file for details
 
 # Building
 
@@ -59,17 +49,19 @@ Clone a copy of the repo
 
 `git clone https://github.com/CommunityHiQ/Frends.Community.PdfReader.git`
 
+Restore dependencies
+
+`nuget restore frends.community.pdfReader`
+
 Rebuild the project
 
-`dotnet build`
+Run Tests with nunit3. Tests can be found under
 
-Run Tests
+`Frends.Community.PdfReader.Tests\bin\Release\Frends.Community.PdfReader.Tests.dll`
 
-`dotnet test`
+Create a nuget package
 
-Create a NuGet package
-
-`dotnet pack --configuration Release`
+`nuget pack nuspec/Frends.Community.PdfReader.nuspec`
 
 # Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -84,9 +76,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 # Change Log
 
-
 | Version             | Changes                 |
 | ---------------------| ---------------------|
 | 0.0.3 | Initial version of PdfReader |
 | 0.0.4 | Suport for acro fields |
-| 0.0.7 | Multi-framework support , using iText7|
