@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+	<TargetFrameworks>net471;netstandard2.0;net6.0;net8.0</TargetFrameworks>
     <description>This is template task.</description>
     <authors>HiQ Finland</authors>
     <copyright>HiQ Finland</copyright>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.1.12" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
